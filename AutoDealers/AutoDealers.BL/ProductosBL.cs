@@ -21,7 +21,10 @@ namespace AutoDealers.BL
         public List<Producto> ObtenerProductos()
         {
 
-            ListadeProductos = _contexto.Productos.ToList();
+            ListadeProductos = _contexto.Productos
+                .Include("Categoria")
+                .ToList();
+
             return ListadeProductos;
         }
 
@@ -39,6 +42,9 @@ namespace AutoDealers.BL
                 productoExistente.Color = producto.Color;
                 productoExistente.Precio = producto.Precio;
                 productoExistente.Existencia = producto.Existencia;
+                productoExistente.CategoriaId= producto.CategoriaId;
+                productoExistente.UrlImagen = producto.UrlImagen;
+
 
 
             } 
@@ -50,9 +56,22 @@ namespace AutoDealers.BL
         public Producto ObtenerProductos (int id)
         {
 
-            var producto = _contexto.Productos.Find(id);
+            var producto = _contexto.Productos
+                .Include("Categoria").FirstOrDefault(p => p.Id == id);
+
             return producto;
         }
+        public List<Producto> ObtenerProductosActivos()
+        {
+            ListadeProductos = _contexto.Productos
+                .Include("Categoria")
+                .Where(r => r.Activo == true)
+                .OrderBy(r => r.Descripcion)
+                .ToList();
+
+            return ListadeProductos;
+        }
+
 
         public void EliminarProducto (int id)
         {

@@ -7,11 +7,9 @@ using System.Threading.Tasks;
 
 namespace AutoDealers.BL
 {
-
-    public class Producto
+    public class Cliente
     {
-
-        public Producto()
+        public Cliente()
         {
             Activo = true;
 
@@ -20,19 +18,17 @@ namespace AutoDealers.BL
         [Required(ErrorMessage = "Ingrese la descripcion del producto")]
         [MinLength(3, ErrorMessage = "Ingrese minimo 3 caracteres")]
         [MaxLength(20, ErrorMessage = "Ingrese la maximo 20 caracteres")]
-        public string Descripcion { get; set; }
-        public string Modelo { get; set; }
-        public string Color { get; set; }
+        public string Nombre { get; set; }
+        public string RTN { get; set; }
+        public string Direccion { get; set; }
 
         [Required(ErrorMessage = "Ingrese el precio")]
         [Range(0, 300000000, ErrorMessage = "Ingrese un rango entre mayor de 0")]
-        public double Precio { get; set; }
-        public int Existencia { get; set; }
-        public int CategoriaId { get; set; }
-        public Categoria Categoria { get; set; }
-
-        [Display(Name = "Imagen")]
-        public string UrlImagen { get; set; }
+        public double Telefono { get; set; }
+        
+        public string Email { get; set; }
+        
+        
         public bool Activo { get; set; }
 
     }
